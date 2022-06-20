@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+
+.tablecls{
+  border-collapse: collapse;
+  width: 100%;
+}
+.h4cls{
+    font-size: 20px;
+    border: 3px solid;
+    background-color: rgb(10, 102, 222);
+  }
+
+.thtdcls {
+  border: 1px solid #0e0e0e;
+  text-align: left;
+  padding: 6px;
+  font-size: 16px;
+  background-color: rgba(8, 20, 30, 0);
+}
+.theadcls{
+  font-size: 25px;
+  font-weight: bold;
+
+}
+
+.clsth {
+  background-color: rgb(117, 201, 250);
+}
+
+.clstd {
+  background-color: rgba(8, 20, 30, 0);
+}
+
+.clsform {
+  display: flex;
+  gap: 5px;
+}
+
+.clsform td:last-child {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.clsform * {
+  font-size: 28px;
+}
