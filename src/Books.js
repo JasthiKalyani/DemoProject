@@ -19,7 +19,7 @@ export class Books extends Component{
      }
      
 render(){
-      const{books,bookId,bkName,bookAuthor,bookGenre,bookDesc} = this.state;
+      const{books,bookid,bkname,bookauthor,bookgenre,bookdesc} = this.state;
      let editBooksClose=()=>this.setState({editBooksShow:false});
     console.log("hi")
     return(
@@ -47,17 +47,17 @@ render(){
                     <td><ButtonToolbar>
                 <Button className="mr-2" variant="info"
                 onClick={()=>this.setState({editBooksShow:true,
-                    bookId:b.id,bkName:b.bookName,bookAuthor:b.author,
-                    bookGenre:b.genre,bookDesc:b.description})}>
+                    bookid:b.id,bkname:b.bookName,bookauthor:b.author,
+                    bookgenre:b.genre,bookdesc:b.description})}>
                         Edit
                 </Button>
                 <EditBooks show={this.state.editBooksShow}
                     onHide={editBooksClose}
-                    bookId={bookId}
-                    bkName={bkName}
-                    bookAuthor={bookAuthor}
-                    bookGenre={bookGenre}
-                    bookDesc={bookDesc}
+                    bookid={bookid}
+                    bkname={bkname}
+                    bookauthor={bookauthor}
+                    bookgenre={bookgenre}
+                    bookdesc={bookdesc}
         />
                 </ButtonToolbar>
                 </td>

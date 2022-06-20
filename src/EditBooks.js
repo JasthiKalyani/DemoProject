@@ -17,8 +17,9 @@ export class EditBooks extends Component{
     // }
 
     handleSubmit(event){
+        console.log(event.target.Description.value)
         event.preventDefault();
-        fetch('https://localhost:44310/api/Library/EditUser',{
+        fetch('https://localhost:44310/api/Library/EditBooks',{
             method:'PUT',
             headers:{
                 'Accept':'application/json',
@@ -29,10 +30,11 @@ export class EditBooks extends Component{
                 BookName:event.target.BookName.value,
                 Author:event.target.Author.value,
                 Genre:event.target.Genre.value,
-                Description:event.target.Description.value
+                Description:event.target.Description.value               
             })
         })
         .then(res=>res.json())
+        console.log("res")
         .then((result)=>{
             alert(result);
         },
@@ -52,7 +54,7 @@ export class EditBooks extends Component{
     aria-labelledby="contained-modal-title-vcenter"
     centered
     >
-    <Modal.Header clooseButton>
+    <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
             Edit Books
         </Modal.Title>
@@ -67,20 +69,20 @@ export class EditBooks extends Component{
                         <Form.Control type="text" name="Id" required 
                         placeholder="Id"
                         disabled
-                        defaultValue={this.props.bookId}/>
+                        defaultValue={this.props.bookid}/>
                     </Form.Group>
 
                     <Form.Group controlId="BookName">
                         <Form.Label>BookName</Form.Label>
                         <Form.Control type="text" name="BookName" required 
-                        defaultValue={this.props.bkName}
+                        defaultValue={this.props.bkname}
                         placeholder="BookName"/>
                     </Form.Group>
 
                     <Form.Group controlId="Author">
                         <Form.Label>Author</Form.Label>
                         <Form.Control type="text" name="Author" required 
-                        defaultValue={this.props.bookAuthor}
+                        defaultValue={this.props.bookauthor}
                         placeholder="Author"/>
                     </Form.Group>
 
@@ -88,14 +90,14 @@ export class EditBooks extends Component{
                         <Form.Label>Genre</Form.Label>
                         <Form.Control type="text" name="Genre" required
                         placeholder="Genre"
-                        defaultValue={this.props.bookGenre}
+                        defaultValue={this.props.bookgenre}
                         />                      
                         
                     </Form.Group>
                     <Form.Group controlId="Description">
                         <Form.Label>Description</Form.Label>
                         <Form.Control type="text" name="Description" required 
-                        defaultValue={this.props.bookDesc}
+                        defaultValue={this.props.bookdesc}
                         placeholder="Description"/>
                     </Form.Group>
 
