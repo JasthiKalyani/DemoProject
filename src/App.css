@@ -38,8 +38,9 @@
 }
 
 .tablecls{
-  border-collapse: collapse;
-  width: 100%;
+  /* border-collapse: collapse;
+  width: 100%; */
+  padding: 0 300px;
 }
 .h4cls{
     font-size: 20px;
@@ -53,6 +54,18 @@
   padding: 6px;
   font-size: 16px;
   background-color: rgba(8, 20, 30, 0);
+}
+.tbcls{
+  padding: 0 300px;
+}
+
+.btncls{
+  border: 1px solid hsl(200, 30%, 96%);
+  text-align: left;
+  padding: 6px;
+  font-size: 16px;
+  background-color: rgb(10, 102, 222);
+  color: #f7fafc;
 }
 .theadcls{
   font-size: 25px;

@@ -1,13 +1,13 @@
 import React,{Component} from 'react';
-import {Table} from 'react-bootstrap';
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import axios from 'axios';
 import {EditBooks} from './EditBooks';
+import {AddBooks} from './AddBooks';
 
 export class Books extends Component{
     constructor(props){
         super(props);
-        this.state={books :[], editBooksShow:false}        
+        this.state={books :[], addModalShow:false, editBooksShow:false}        
     }   
     componentDidMount() {  
                 axios.get("https://localhost:44310/api/Library/Books").then(response => {  
@@ -20,32 +20,34 @@ export class Books extends Component{
      
 render(){
       const{books,bookid,bkname,bookauthor,bookgenre,bookdesc} = this.state;
+      let addModalClose=()=>this.setState({addModalShow:false});
      let editBooksClose=()=>this.setState({editBooksShow:false});
     console.log("hi")
     return(
         <div>
-            <h4 align="center" style={{ color: "Blue" }} >Book details</h4> 
+            <h2 align="center" style={{ color: "Blue" }}  >Book details</h2> 
             {/* <table class="tablecls" width= "100%">class="h4cls" */}
-            <Table className="mt-4" striped bordered hover size="sm">
+            <table className="tbcls">
            <thead >
+            <tr></tr>
             <tr>
-                <td class ="thtdcls">Id </td>             
-                <td class ="thtdcls">BookName</td>
-                <td class ="thtdcls">Author</td>
-                <td class ="thtdcls">Genre</td>
-                <td class ="thtdcls">Description</td>
+                <td className ="thtdcls">Id </td>             
+                <td className ="thtdcls">BookName</td>
+                <td className ="thtdcls">Author</td>
+                <td className ="thtdcls">Genre</td>
+                <td className ="thtdcls">Description</td>
             </tr>
            </thead>
            <tbody>           
                 {books.map(b=>
                 <tr key={b.Id}>
-                    <td class ="thtdcls">{b.id}</td>                    
-                    <td class ="thtdcls">{b.bookName}</td>
-                    <td class ="thtdcls">{b.author} </td>
-                    <td class ="thtdcls">{b.genre} </td>
-                    <td class ="thtdcls">{b.description} </td>
+                    <td className ="thtdcls">{b.id}</td>                    
+                    <td className ="thtdcls">{b.bookName}</td>
+                    <td className ="thtdcls">{b.author} </td>
+                    <td className ="thtdcls">{b.genre} </td>
+                    <td className ="thtdcls">{b.description} </td>
                     <td><ButtonToolbar>
-                <Button className="mr-2" variant="info"
+                <Button className="btncls" 
                 onClick={()=>this.setState({editBooksShow:true,
                     bookid:b.id,bkname:b.bookName,bookauthor:b.author,
                     bookgenre:b.genre,bookdesc:b.description})}>
@@ -60,10 +62,21 @@ render(){
                     bookdesc={bookdesc}
         />
                 </ButtonToolbar>
+
                 </td>
+                <td width="100px"> <ButtonToolbar>
+                    <Button className="btncls"
+                    onClick={()=>this.setState({addModalShow:true})}>
+                    Add Book</Button>
+
+                    <AddBooks show={this.state.addModalShow}
+                    onHide={addModalClose}/>
+                </ButtonToolbar></td>
                 </tr>)}
            </tbody>
-           </Table>
+           </table>
+           
+          
         </div>
     )
 }

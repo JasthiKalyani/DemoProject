@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
-import { Table } from 'react-bootstrap';
+// import { Table } from 'react-bootstrap';
 import axios from 'axios';
-import { toBeChecked } from '@testing-library/jest-dom/dist/matchers';
 import e from 'cors';
 
 export class Admin extends Component{
@@ -56,21 +55,22 @@ render(){
     console.log("hi")
     return(
         <div>
-            <h4 align="center" style={{ color: "white" }} class="h4cls">User details</h4> 
-            <table class="tablecls" width= "100%">
+            <h2 align="center" style={{ color: "Blue" }}>User details</h2> 
+            {/* <table class="tablecls" width= "60%"> */}
+            <table className="tablecls" width ="100%">
            <thead >
             <tr>
-                <td class ="thtdcls">Id </td>             
-                <td class ="thtdcls">UserName</td>
-                <td class ="thtdcls">Isadmin</td>
+                <td className ="thtdcls">Id </td>             
+                <td className ="thtdcls">UserName</td>
+                <td className ="thtdcls">Isadmin</td>
             </tr>
            </thead>
            <tbody>
                 {usrs.map(u=>
                 <tr key={u.Id}>
-                    <td class ="thtdcls">{u.id}</td>                    
-                    <td class ="thtdcls">{u.userName }</td>
-                    <td class ="thtdcls"> 
+                    <td className ="thtdcls">{u.id}</td>                    
+                    <td className ="thtdcls">{u.userName }</td>
+                    <td className ="thtdcls"> 
                         <input type="checkbox" id = "chck"  checked={!u.is_admin||u.is_admin === null?false:true}/>
                                                
                         </td>

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Modal,Button, Row, Col, Form} from 'react-bootstrap';
 
-export class EditBooks extends Component{
+export class AddBooks extends Component{
     constructor(props){
         super(props);
         // this.state={bks:[]};
@@ -11,14 +11,14 @@ export class EditBooks extends Component{
      handleSubmit(event){
         console.log(event.target.Description.value)
         event.preventDefault();
-        fetch('https://localhost:44310/api/Library/EditBooks',{
-            method:'PUT',
+        fetch('https://localhost:44310/api/Library/AddBooks',{
+            method:'POST',
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                Id:event.target.Id.value,
+                Id:null,
                 BookName:event.target.BookName.value,
                 Author:event.target.Author.value,
                 Genre:event.target.Genre.value,
@@ -48,7 +48,7 @@ export class EditBooks extends Component{
     >
     <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-            Edit Books
+            Add Books
         </Modal.Title>
     </Modal.Header>
     <Modal.Body>
@@ -57,44 +57,36 @@ export class EditBooks extends Component{
             <Col sm={6}>
                 <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="Id">
-                        <Form.Label>Id : </Form.Label>
-                        <Form.Control type="text" name="Id" required 
-                        placeholder="Id"
-                        disabled
-                        defaultValue={this.props.bookid}/>
+                        <Form.Label>Id </Form.Label>
+                        <Form.Control type="text" name="Id"  
+                        placeholder="Id"/>
                     </Form.Group>
 
                     <Form.Group controlId="BookName">
-                        <Form.Label>BookName : </Form.Label>
+                        <Form.Label>BookName</Form.Label>
                         <Form.Control type="text" name="BookName" required 
-                        defaultValue={this.props.bkname}
-                        placeholder="BookName"/>
+                          placeholder="BookName"/>
                     </Form.Group>
 
                     <Form.Group controlId="Author">
-                        <Form.Label>Author : </Form.Label>
+                        <Form.Label>Author</Form.Label>
                         <Form.Control type="text" name="Author" required 
-                        defaultValue={this.props.bookauthor}
-                        placeholder="Author"/>
+                            placeholder="Author"/>
                     </Form.Group>
 
                     <Form.Group controlId="Genre">
-                        <Form.Label>Genre : </Form.Label>
+                        <Form.Label>Genre</Form.Label>
                         <Form.Control type="text" name="Genre" required
-                        placeholder="Genre"
-                        defaultValue={this.props.bookgenre}
-                        />                      
-                        
+                        placeholder="Genre"/>                                   
                     </Form.Group>
                     <Form.Group controlId="Description">
-                        <Form.Label>Description : </Form.Label>
+                        <Form.Label>Description</Form.Label>
                         <Form.Control type="text" name="Description" required 
-                        defaultValue={this.props.bookdesc}
                         placeholder="Description"/>
                     </Form.Group>
 
                     <Form.Group>
-                        <Button className="btncls"  variant="primary" type="submit">
+                        <Button variant="primary" type="submit">
                             Update Books
                         </Button>
                     </Form.Group>
@@ -104,7 +96,7 @@ export class EditBooks extends Component{
     </Modal.Body>
     
     <Modal.Footer>
-        <Button className="btncls" variant="danger" onClick={this.props.onHide}>Close</Button>
+        <Button variant="danger" onClick={this.props.onHide}>Close</Button>
     </Modal.Footer>
 
 </Modal>
