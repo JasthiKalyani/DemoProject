@@ -52,12 +52,11 @@ render(){
              const usrName = this.state.users.find(u => u.id === ub.userId);
              const bkName = this.state.books.find(b => b.id === ub.bookId);
             })
-          } 
+          }        
                 {this.state.userBooks.map(u=>
                 <tr key={u.Id}>
                     <td className ="thtdcls">{u.id}</td>                    
-                    {/* <td className ="thtdcls">this.state.users.map(usr =>
-                                     usr.id === u.userId){usr.userName}</td> */}
+                    <td className ="thtdcls">{this.state.usrName}</td>
                     <td className ="thtdcls">{this.state.bkName}</td>
                     <td className ="thtdcls">{u.bookedTime} </td>
                     <td className ="thtdcls">{u.returnedDate} </td>

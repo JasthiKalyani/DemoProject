@@ -1,108 +1,85 @@
-import React,{Component} from 'react';
-import {Modal,Button, Row, Col, Form} from 'react-bootstrap';
+import React from "react";
+import { useHistory } from "react-router-dom";
+import {Button, Form } from 'react-bootstrap';
+import './App.css';
 
-export class AddBooks extends Component{
-    constructor(props){
-        super(props);
-        // this.state={bks:[]};
-        this.handleSubmit=this.handleSubmit.bind(this);
-    }
-
-     handleSubmit(event){
-        console.log(event.target.Description.value)
-        event.preventDefault();
-        fetch('https://localhost:44310/api/Library/AddBooks',{
-            method:'POST',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-                Id:null,
-                BookName:event.target.BookName.value,
-                Author:event.target.Author.value,
-                Genre:event.target.Genre.value,
-                Description:event.target.Description.value               
-            })
-        })
-        .then(res=>res.json())
-        console.log("res")
-        .then((result)=>{
-            alert(result);
+function AddBooks(props) {
+   const history = useHistory();
+ 
+const onSubmit = (event) =>  {
+    console.log(event.target.Genre.value)
+    event.preventDefault();
+    fetch('https://localhost:44310/api/Library/AddBooks',{
+        method:'POST',
+        headers:{
+            'Accept':'application/json',
+            'Content-Type':'application/json'
         },
-        (error)=>{
-            alert('Failed');
+        body:JSON.stringify({
+            id:event.target.Id.value,
+            bookName:event.target.BookName.value,
+            author:event.target.Author.value,
+            genre:event.target.Genre.value,
+            description:event.target.Description.value               
         })
-    }
+    })
+    .then(res=>res.json())   
+    .then((result)=>{
+        console.log("res")
+        history.push("/Books")
+    },
+    (error)=>{
+        alert('Failed');
+    })
+}
 
-
-  render(){
-        return (
-            <div className="container">
-
-<Modal
-    {...this.props}
-    size="lg"
-    aria-labelledby="contained-modal-title-vcenter"
-    centered
-    >
-    <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-            Add Books
-        </Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-
-        <Row>
-            <Col sm={6}>
-                <Form onSubmit={this.handleSubmit}>
-                <Form.Group controlId="Id">
-                        <Form.Label>Id </Form.Label>
-                        <Form.Control type="text" name="Id"  
-                        placeholder="Id"/>
+  return (
+    <div className="container">   
+    <h2 align="center" style={{ color: "Blue" }}>Book details</h2>  
+      <Form align="center" onSubmit={onSubmit} className="formcls">         
+                        <Form.Group controlId="Id">
+                        <Form.Label className="labelcls">Id</Form.Label>
+                        <Form.Control type="text" name="Id" required 
+                        placeholder="Id" className="inputcls"
+                        disabled/>                     
                     </Form.Group>
 
                     <Form.Group controlId="BookName">
-                        <Form.Label>BookName</Form.Label>
+                        <Form.Label className="labelcls">BookName</Form.Label>
                         <Form.Control type="text" name="BookName" required 
-                          placeholder="BookName"/>
+                       className="inputcls"
+                        placeholder="BookName"/>
                     </Form.Group>
-
+                   
                     <Form.Group controlId="Author">
-                        <Form.Label>Author</Form.Label>
+                        <Form.Label className="labelcls">Author</Form.Label>
                         <Form.Control type="text" name="Author" required 
-                            placeholder="Author"/>
+                         className="inputcls"
+                        placeholder="Author"/> 
                     </Form.Group>
 
                     <Form.Group controlId="Genre">
-                        <Form.Label>Genre</Form.Label>
+                        <Form.Label className="labelcls">Genre</Form.Label>
                         <Form.Control type="text" name="Genre" required
-                        placeholder="Genre"/>                                   
+                        placeholder="Genre" className="inputcls" />                      
+                        
                     </Form.Group>
                     <Form.Group controlId="Description">
-                        <Form.Label>Description</Form.Label>
+                        <Form.Label className="labelcls">Description</Form.Label>
                         <Form.Control type="text" name="Description" required 
+                       className="inputcls"
                         placeholder="Description"/>
                     </Form.Group>
 
                     <Form.Group>
-                        <Button variant="primary" type="submit">
-                            Update Books
+                        <br></br>
+                        <Button className="btncls"  variant="primary" type="submit">
+                            Add New Book
                         </Button>
                     </Form.Group>
                 </Form>
-            </Col>          
-        </Row>
-    </Modal.Body>
-    
-    <Modal.Footer>
-        <Button variant="danger" onClick={this.props.onHide}>Close</Button>
-    </Modal.Footer>
+                </div>
+  );
+};
 
-</Modal>
-
-            </div>
-        )
-    }
-
-}
+export default AddBooks;

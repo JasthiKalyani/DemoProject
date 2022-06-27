@@ -1,11 +1,9 @@
 import React,{Component} from 'react';
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import axios from 'axios';
-import {EditBooks} from './EditBooks';
-import { Link } from "react-router-dom";
 // import {AddBooks} from './AddBooks';
 
-export class Books extends Component{
+export class Bookss extends Component{
     constructor(props){
         super(props);
         this.state={books :[]}        
@@ -18,6 +16,33 @@ export class Books extends Component{
             });  
         });
      }
+     onAdd = (e,id) => {
+        console.log(e.target.Genre.value)
+        e.preventDefault();
+        fetch('https://localhost:44310/api/Library/AddUserBooks',{
+            method:'POST',
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                // id:event.target.Id.value,
+                 bookId:id,
+                // author:event.target.Author.value,
+                // genre:event.target.Genre.value,
+                // description:event.target.Description.value               
+            })
+        })
+        .then(res=>res.json())   
+        .then((result)=>{
+            console.log("res")
+            this.props.history.push("/Books")
+        },
+        (error)=>{
+            alert('Failed');
+        })
+    }  
+           
      
 render(){
       const{books} = this.state;
@@ -44,19 +69,10 @@ render(){
                     <td className ="thtdcls">{b.author} </td>
                     <td className ="thtdcls">{b.genre} </td>
                     <td className ="thtdcls">{b.description} </td>
-                    <td> <Link
-                    className="btncls"
-                    to={`/EditBooks/${b.id}`}
-                  >
-                    Edit
-                  </Link>
+                    <td> <button  className="btncls" onClick ={(e) =>this.onAdd(e,b.id)} >        
+                    Add to MyBooks  </button>                
                   </td>                    
-                </tr>)}
-                <tr><td> <Link
-                    className="btncls"
-                    to={`/AddBooks`} >
-                    Add Book
-                  </Link></td></tr>
+                </tr>)}               
            </tbody>
            </table>         
         </div>

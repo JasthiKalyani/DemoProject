@@ -1,11 +1,12 @@
 import React,{Component} from 'react';
 import './Login.css'; 
+// import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
- export class Login extends Component{
+export class Login extends Component{
    constructor(props){
     super(props);
-    this.state={usrs :[],usrname:'',chckpwd :'',chkvalid :false}      
+    this.state={usrs :[],usrname:'',chckpwd :'',chkvalid :false, errors: {}}      
     this.onusername = this.onusername.bind(this); 
     this.onpassword = this.onpassword.bind(this); 
   }  
@@ -13,8 +14,6 @@ import axios from 'axios';
   componentDidMount() {  
     axios.get("https://localhost:44310/api/Library/Users").then(response => {  
 console.log(response.data);  
-// const len = this.count(response.data.array.lenght);
-// console.log(len);
 this.setState({  
     usrs: response.data  
 });  
@@ -41,24 +40,46 @@ onpassword = (e) =>{
   };
   onSubmit = (e) => {
     e.preventDefault(); 
-     for (let i = 0; i < 5; i++) {
+    this.state.usrs.map((u) => {
       console.log("onsub")
-     if (this.state.usrs[i].userName === this.state.usrname && this.state.usrs[i].pwd === this.state.chckpwd)
+     if (u.userName === this.state.usrname && u.pwd === this.state.chckpwd)
        {
-        console.log("in loop");
-        this.props.history.push('/Books')
-        document.location.reload()   
+          if(u.is_admin===1){ this.props.history.push('/Books')}
+          else{ this.props.history.push('/Bookss')}
+          
          this.setState({chkvalid :true });
-      console.log(this.state.chkvalid); 
+      
          }               
+    })
+    let errors = {};
+    if(this.state.usrname === "" && this.state.chckpwd === ""){     
+      errors["username"] = "*Please enter your username.";
+      errors["password"] = "*Please enter your password.";
+      this.setState({
+        errors: errors
+      });
     }
-   if ( this.state.usrname === "" || this.state.chckpwd === ""){
-      alert("Please enter credentials") 
+  else if ( this.state.usrname === "" ){
+         errors["username"] = "*Please enter your username.";
+      this.setState({
+        errors: errors
+      });
+
+    }else if(this.state.chckpwd === ""){
+       errors["password"] = "*Please enter your password.";
+      this.setState({
+        errors: errors
+      });
     }
+    else
     if(!this.state.chckpwd) {
       console.log("hi")
          alert("Enter valid credentials") }       
        
+  }
+  onSignup = (e) =>{
+    e.preventDefault(); 
+    this.props.history.push('/Signup')
   }
 
 render(){
@@ -78,15 +99,15 @@ render(){
             <div className="wrap-input100 validate-input">
               <input
                 className="input100"
-                placeholder="UserName"
+                placeholder="userName"
                 type="text"
                 name="UserName"
-                autoComplete="off"
+                autoComplete="off" required
                 value={this.state.usrName} 
                 onChange = {this.onusername}
               />
             </div>
-
+            <div className="errorMsg">{this.state.errors.username}</div>
             <div className="wrap-input100 validate-input">
               <input
                 className="input100"
@@ -100,11 +121,17 @@ render(){
                 onClick={this.togglePasswordVisiblity}
               />
             </div>
-
+            <div className="errorMsg">{this.state.errors.password}</div>
             <div className="container-login100-form-btn">
               <div className="wrap-login100-form-btn">
                 <div className="login100-form-bgbtn" />
                 <button className="login100-form-btn" onClick={this.onSubmit}>Login</button>
+              </div>
+            </div>
+            <div className="container-login100-form-btn">
+              <div className="wrap-login100-form-btn">
+                <div className="login100-form-bgbtn" />
+                <button className="login100-form-btnsignup" onClick={this.onSignup}>SignUp</button>
               </div>
             </div>
           </form>
